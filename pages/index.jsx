@@ -13,10 +13,12 @@ import { TopMenu } from '../components/menu/topbar'
 const Home = ({ videos, account }) => {
   const { isOpen, setIsOpen } = useContext(PageContext)
 
+  // Reset the isOpen to remove the transition
   useEffect(() => {
     setIsOpen(false)
   }, [setIsOpen])
 
+  // If 'watch' button is clicked, animate to slug-page with the <ToSlug />-animation
   const handleSlugTransition = (isOpen) => {
     if (isOpen == true) {
       return (
@@ -27,7 +29,6 @@ const Home = ({ videos, account }) => {
 
   return (
     <>
-
       {handleSlugTransition(isOpen)}
 
       <Head>
@@ -57,6 +58,7 @@ export const getStaticProps = async () => {
     }
   })
 
+  // query to get the video-content
   const videosQuery = gql`
     query {
       videos{
@@ -80,6 +82,7 @@ export const getStaticProps = async () => {
       }
     }`
 
+  // query to get the data regarding our only user
   const accountQuery = gql`
       query {
         account(where: {id:"cl266w77718si0cuq8nnqz05d"}){

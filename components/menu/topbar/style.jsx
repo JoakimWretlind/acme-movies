@@ -9,7 +9,7 @@ export const TopNav = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0,0,0,.8);
     z-index: 98;
 `;
 
@@ -36,8 +36,12 @@ export const LogoImg = styled.img`
 
 export const Title = styled.h1`
     position: absolute;
+    padding-top: .2rem;
     text-transform: capitalize; 
     left: 50%;
+    font-family: "alexbrush";
+    font-size: 3.4rem;
+    letter-spacing: .3rem;
     transform: translateX(-50%);
     color: ${props => props.theme.white};
 `;

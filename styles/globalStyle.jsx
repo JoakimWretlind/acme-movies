@@ -13,6 +13,16 @@ export const movieTheme = {
 };
 
 export const GlobalStyle = createGlobalStyle`
+/** FONTS **/
+@font-face {
+  font-family: "alexbrush";
+  src: local("alexbrush"), url('/fonts/AlexBrush.ttf') format("truetype");
+}
+@font-face {
+  font-family: "yellowtail";
+  src: local("yellowtail"), url('/fonts/Yellowtail.ttf') format("truetype");
+}
+
     *,
     ::after,
     ::before {
