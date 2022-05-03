@@ -3,6 +3,53 @@ import Link from 'next/link'
 import { gql, GraphQLClient } from 'graphql-request'
 import { Wrapper, InnerWrapper, Img, Info } from '../../styles/slug.styles'
 
+const Video = ({ video }) => {
+    const [watching, setWatching] = useState(false)
+    const { bigThumbnail, title, tag, description, slug, mp4 } = video
+
+    return (
+        <>
+            <Wrapper>
+                <InnerWrapper>
+                    {!watching &&
+                        <Img
+                            src={bigThumbnail.url}
+                            alt={title}
+                        />
+
+                    }
+                    {!watching &&
+                        <Info>
+                            <p>{tag.join(', ')}</p>
+                            <p>{description}</p>
+                            <Link href="/" passHref>
+                                <a>back</a>
+                            </Link>
+                            <button
+                                onClick={() => {
+                                    changeToSeen(slug)
+                                    watching ? setWatching(false) : setWatching(true)
+                                }}
+                            >PLAY</button>
+                        </Info>
+                    }
+                    {watching &&
+                        <video controls autoPlay>
+                            <source src={mp4.url} type="video/mp4" />
+                        </video>
+                    }
+                    <div className="footer"
+                        onClick={() => watching ? setWatching(false) : null} >
+                    </div>
+                </InnerWrapper>
+            </Wrapper>
+        </>
+    )
+}
+
+export default Video
+
+/** GET DATA **/
 export const getServerSideProps = async (pageContext) => {
     const url = process.env.ENDPOINT
     const graphQLClient = new GraphQLClient(url, {
@@ -62,52 +109,3 @@ const changeToSeen = async (slug) => {
         body: JSON.stringify({ slug })
     })
 }
-
-
-const Video = ({ video, isDetails }) => {
-    const [watching, setWatching] = useState(false)
-    const { bigThumbnail, title, tag, description, slug, mp4 } = video
-
-
-    return (
-        <>
-            <Wrapper>
-                <InnerWrapper>
-                    {!watching &&
-                        <Img
-                            src={bigThumbnail.url}
-                            alt={title}
-                            isDetails={isDetails}
-                        />
-
-                    }
-                    {!watching &&
-                        <Info>
-                            <p>{tag.join(', ')}</p>
-                            <p>{description}</p>
-                            <Link href="/" passHref>
-                                <a>back</a>
-                            </Link>
-                            <button
-                                onClick={() => {
-                                    changeToSeen(slug)
-                                    watching ? setWatching(false) : setWatching(true)
-                                }}
-                            >PLAY</button>
-                        </Info>
-                    }
-                    {watching &&
-                        <video controls autoPlay>
-                            <source src={mp4.url} type="video/mp4" />
-                        </video>
-                    }
-                    <div className="footer"
-                        onClick={() => watching ? setWatching(false) : null} >
-                    </div>
-                </InnerWrapper>
-            </Wrapper>
-        </>
-    )
-}
-
-export default Video

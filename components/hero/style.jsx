@@ -4,8 +4,7 @@ import styled from 'styled-components';
 export const Hero = styled.section`
     position: relative;
     grid-row: 1;
-    grid-column: 1 / -1;
-    z-index: 1;
+    grid-column: 1 / -1;    
 `;
 
 // MAIN HERO LAYOUT

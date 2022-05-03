@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { PageContext } from '../pageContext';
+import { PageContext } from '../context/pageContext'
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Container, SliderItem, Img, ButtonContainer, Button, H3, H5 } from './style'

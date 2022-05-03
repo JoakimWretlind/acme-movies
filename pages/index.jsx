@@ -1,114 +1,22 @@
 import { useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { gql, GraphQLClient } from 'graphql-request'
-import { motion } from 'framer-motion'
-import { PageContext } from '../components/pageContext'
+import { PageContext } from '../components/context/pageContext'
 import { HomeWrapper } from '../styles/basic.styles'
 import { HeroSection } from '../components/hero'
 import { MovieSection } from '../components/moviesSection'
 import { FooterSection } from '../components/footer'
-import { FadeTransition } from '../components/animations/fadeTransition'
-import styled from 'styled-components';
 import { ToSlug } from '../components/animations/toSlug'
-
-const articles = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 }
-]
-
-export const MainOverlay = styled.div`
-     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    background-color: violet;
-    // width (or height) has to be dynamic not to cover the open page
-    width: ${({ isOpen }) => (isOpen ? "100vw" : "0")};
-`;
-
-export const Overlay = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    background-color: lightyellow;
-    z-index: ${({ isOpen }) => (isOpen ? "3" : 0)};
-    display: flex;
-    flex-direction: column;
-`;
-
-export const Panel = styled.div`
-    /* background-color: ${props => props.theme.red}; */
-    background-color: blue;
-    height: 100vh;
-`;
+import { FadeTransition } from '../components/animations/fadeTransition'
 
 const Home = ({ videos, account }) => {
-  // const { value, setValue } = useContext(PageContext)
   const { isOpen, setIsOpen } = useContext(PageContext)
 
   useEffect(() => {
     setIsOpen(false)
-  }, [])
+  }, [setIsOpen])
 
-  const handleActive = () => {
-    if (isOpen == true) {
-      return (
-        <ToSlug />
-      )
-    }
-  }
-
-  const listVariant = {
-    hidden: {
-      y: -20,
-      opacity: 0,
-      transition: { delay: 0 }
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: .3,
-        ease: 'easeOut'
-      }
-    }
-  }
-
-  const handleOpen = (isOpen) => {
-    if (isOpen == true) {
-      return (
-        <Overlay as={motion.ul}>
-          {articles.map((item, index) => (
-            <Panel
-              key={item.id}
-              as={motion.li}
-              initial={{ x: index % 2 === 0 ? "-100vw" : "100vw" }}
-              animate={{
-                x: 0, transition: {
-                  duration: 0.5,
-                  delay: index * 0.1,
-                  ease: [0.5, .11, 0.45, 0.15]
-                }
-              }}
-            />
-          ))}
-        </Overlay>
-      )
-    }
-  }
-
-  const variants = {
-    hidden: { opacity: 0, transition: { duration: 3 } },
-    enter: { opacity: 1, transition: { duration: 3 } },
-    exit: { opacity: 0, transition: { duration: 3 } }
-  }
-
-  const handleAny = (isOpen) => {
+  const handleSlugTransition = (isOpen) => {
     if (isOpen == true) {
       return (
         <ToSlug />
@@ -118,8 +26,7 @@ const Home = ({ videos, account }) => {
 
   return (
     <>
-
-      {handleAny(isOpen)}
+      {handleSlugTransition(isOpen)}
 
       <Head>
         <title>acme movies</title>
@@ -127,20 +34,13 @@ const Home = ({ videos, account }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
-
-      <HomeWrapper
-        as={motion.main}
-        variants={variants} // Pass the variant object into Framer Motion 
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: 'linear' }} // Set the transition to linear
-      >
-        <HeroSection videos={videos} />
-        <MovieSection videos={videos} />
-        <FooterSection />
-      </HomeWrapper>
+      <FadeTransition>
+        <HomeWrapper >
+          <HeroSection videos={videos} />
+          <MovieSection videos={videos} />
+          <FooterSection />
+        </HomeWrapper>
+      </FadeTransition>
     </>
   )
 }
@@ -156,28 +56,26 @@ export const getStaticProps = async () => {
 
   const videosQuery = gql`
     query {
-  videos{
-    createdAt,
-    id,
-    title,
-    tag,
-    description,
-    seen,
-    slug,
-    displayTag,
-    thumbnail{
-      url
-    },
-    bigThumbnail{
-      url
-    }
-    mp4{
-      url
-    }
-  }
-}
-    
-    `
+      videos{
+        createdAt,
+        id,
+        title,
+        tag,
+        description,
+        seen,
+        slug,
+        displayTag,
+        thumbnail{
+          url
+        },
+        bigThumbnail{
+          url
+        }
+        mp4{
+          url
+        }
+      }
+    }`
 
   const accountQuery = gql`
       query {
@@ -187,14 +85,12 @@ export const getStaticProps = async () => {
             url
           }
         }
-      }
-  `
+      }`
 
   const data = await graphQLClient.request(videosQuery)
   const videos = data.videos
   const accountData = await graphQLClient.request(accountQuery)
   const account = accountData.account
-
 
   return {
     props: {
@@ -205,68 +101,3 @@ export const getStaticProps = async () => {
 }
 
 export default Home;
-
-
-
-// export const Overlay = styled.div`
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     height: 100vh;
-//     width: 100%;
-//     background-color: transparent;
-//     z-index: 3;
-//     display: flex;
-//     flex-direction: column;
-// `;
-
-// export const Panel = styled.div`
-//     background-color: ${props => props.theme.red};
-//     height: 100vh;
-// `;
-
-// const Home = ({ videos, account }) => {
-//   // const { value, setValue } = useContext(PageContext)
-//   const { isOpen } = useContext(PageContext)
-
-//   const handleOpen = (isOpen) => {
-//     if (isOpen == true) {
-//       return (
-//         <Overlay as={motion.ul}>
-//           {articles.map((item, index) => (
-//             <Panel
-//               key={item.id}
-//               as={motion.li}
-//               initial={{ x: index % 2 === 0 ? "-100vw" : "100vw" }}
-//               animate={{
-//                 x: 0, transition: {
-//                   duration: 0.35,
-//                   delay: index * 0.1,
-//                   ease: [0.5, .11, 0.45, 0.15]
-//                 }
-//               }}
-//             />
-//           ))}
-//         </Overlay>
-//       )
-//     }
-//   }
-
-//   return (
-//     <>
-//       <Head>
-//         <title>acme movies</title>
-//         <meta name="description" content="Generated by create next app" />
-//         <link rel="icon" href="/favicon.ico" />
-//       </Head>
-
-//       <HomePageTransition />
-//       <HomeWrapper>
-//         <HeroSection videos={videos} />
-//         <MovieSection videos={videos} />
-//         <FooterSection />
-//       </HomeWrapper>
-//       {handleOpen(isOpen)}
-//     </>
-//   )
-// }

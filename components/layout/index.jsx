@@ -1,11 +1,8 @@
-import { useState, useMemo } from "react"
-import { PageContext } from "../pageContext"
+import { useState } from "react"
+import { PageContext } from "../context/pageContext"
 
 export const Layout = (props) => {
-    // const [value, setValue] = useState('hello from context layout')
     const [isOpen, setIsOpen] = useState(false)
-
-    // const providerValue = useMemo(() => ({ isOpen, setIsOpen }), [isOpen, setIsOpen])
 
     return (
         <>

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 // import { MotionOverlay, Panel } from '../../styles/common.style';
 import styled from 'styled-components';
 
-// Set the drif-template-columns to repeat the same amount of panels in 
+// Set the grid-template-columns to repeat the same amount of panels in 
 // '/components/animations/toDetailsTransition', 1fr will make them even
 export const MotionOverlay = styled.div`
     position: fixed;
@@ -10,14 +10,13 @@ export const MotionOverlay = styled.div`
     height: 100%;
     width: 100vw;
     display: grid;
-    background-color: green;
     grid-template-columns: repeat(5, 1fr);
     z-index: 99;
 `;
 
 export const Panel = styled.div`
     height: 100vh;
-    background-color: #ff0000;
+    background-color: ${props => props.theme.red};
 `;
 
 // How many panels we want
@@ -40,7 +39,7 @@ export const ToSlug = () => {
                     animate={{ translateY: 0 }}
                     transition={{
                         duration: 0.5,
-                        delay: i * 0.1,
+                        // delay: i * 0.1,
                         ease: [0.5, .11, 0.45, 0.15]
                     }}
                 />
