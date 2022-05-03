@@ -8,7 +8,8 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${props => props.theme.red};    
+    /* background-color: ${props => props.theme.red};     */
+    background-color: #E6E6E3;
 `;
 
 export const InnerWrapper = styled.div`
@@ -30,28 +31,18 @@ export const Info = styled.div`
 const growImage = keyframes`
    0% {
         opacity: 0;
-        height: 50vh;
-        width: 20%;
+        height: 0vh;
+        width: 0;
         animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
     }
-    11% {
-        opacity: 0;
+    57%{
+        opacity: 1;
         height: 50vh;
-        width: 20%;
-        animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
-    }
-    51%{
-      opacity: 1;
-    }
-    70%{
         width: 100vw;
-    }
-    74%{
-        height: 50vh;
+        animation-timing-function: cubic-bezier(.13,.45,.93,.71);
     }
     100% {
         height: 100vh;
-        opacity: 1;
   } 
 `
 
@@ -59,6 +50,6 @@ export const Img = styled.img`
     height: 100vh;
     width: 100vw;
     object-fit: cover;
-    animation: 1.7s  ${growImage};
+    animation: 1.2s  ${growImage};
 `;
 

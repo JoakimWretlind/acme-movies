@@ -16,7 +16,8 @@ export const MotionOverlay = styled.div`
 
 export const Panel = styled.div`
     height: 100vh;
-    background-color: ${props => props.theme.red};
+    /* background-color: ${props => props.theme.red}; */
+    background-color: #E6E6E3;
 `;
 
 // How many panels we want
@@ -35,13 +36,19 @@ export const ToSlug = () => {
                 <Panel
                     as={motion.li}
                     key={article.id}
-                    initial={{ translateY: i % 2 === 0 ? "-100vh" : "100vh" }}
-                    animate={{ translateY: 0 }}
-                    transition={{
-                        duration: 0.5,
-                        // delay: i * 0.1,
-                        ease: [0.5, .11, 0.45, 0.15]
+                    initial={{ y: i % 2 === 0 ? "-100vh" : "100vh" }}
+                    animate={{
+                        y: 0, transition: {
+                            duration: .5,
+                            ease: [0.5, .11, 0.45, 0.15]
+                        }
                     }}
+                // animate={{ translateY: 0 }}
+                // transition={{
+                //     duration: 0.5,
+                //     // delay: i * 0.1,
+                //     ease: [0.5, .11, 0.45, 0.15]
+                // }}
                 />
             ))}
         </MotionOverlay>

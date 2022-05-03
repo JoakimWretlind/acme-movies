@@ -13,9 +13,9 @@ export const MovieSection = ({ videos }) => {
     }
 
     const variants = {
-        hidden: { opacity: 0, transition: { duration: 3 } },
-        enter: { opacity: 1, transition: { duration: 3 } },
-        exit: { opacity: 0, transition: { duration: 3 } }
+        hidden: { opacity: 0, transition: { duration: .6 } },
+        enter: { opacity: 1, transition: { duration: .6 } },
+        exit: { opacity: 0, transition: { duration: .6 } }
     }
 
     return (
