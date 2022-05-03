@@ -18,10 +18,6 @@ export const GlobalStyle = createGlobalStyle`
   font-family: "alexbrush";
   src: local("alexbrush"), url('/fonts/AlexBrush.ttf') format("truetype");
 }
-@font-face {
-  font-family: "yellowtail";
-  src: local("yellowtail"), url('/fonts/Yellowtail.ttf') format("truetype");
-}
 
     *,
     ::after,

@@ -13,7 +13,6 @@ export const Article = styled.article`
     width: 100%;
     opacity: 0;
     transition: all 1s linear; 
-    background-color: lightblue;
     &.activeSlide {
         opacity: 1;
         transform: translateX(0);

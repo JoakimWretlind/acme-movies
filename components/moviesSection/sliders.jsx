@@ -7,13 +7,12 @@ import 'swiper/css';
 
 export const Sliders = ({ genre, videos }) => {
     // const { value, setValue } = useContext(PageContext)
-    const { isOpen, setIsOpen } = useContext(PageContext)
+    const { setIsOpen } = useContext(PageContext)
 
     return (
         <Container>
             <H3>{genre}</H3>
             <Swiper
-
                 className="swiper"
                 grabCursor="true"
                 breakpoints={{
@@ -40,15 +39,16 @@ export const Sliders = ({ genre, videos }) => {
                 }}
             >
                 {videos.map(video => {
-                    const { id, title, thumbnail } = video
+                    const { id, title, thumbnail, slug, subtitle } = video
                     return (
                         <SwiperSlide key={id} className="slider">
                             <SliderItem>
                                 <Img src={thumbnail.url} />
                                 <H5>{title}</H5>
+                                <h3>{subtitle}</h3>
                                 <ButtonContainer >
                                     {/** The scroll={false} will make the page NOT to scroll to top when clicked */}
-                                    <Link href={`/video/${video.slug}`} passHref scroll={false}>
+                                    <Link href={`/video/${slug}`} passHref scroll={false}>
                                         <Button className="watch" onClick={() => setIsOpen(true)}>
                                             watch
                                         </Button>

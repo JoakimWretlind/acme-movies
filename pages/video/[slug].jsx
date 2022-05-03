@@ -1,37 +1,62 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { gql, GraphQLClient } from 'graphql-request'
-import { Wrapper, InnerWrapper, Img, Info } from '../../styles/slug.styles'
+import {
+    Wrapper,
+    InnerWrapper,
+    ImageWrapper,
+    Info,
+    Img,
+    H2,
+    H3,
+    H5,
+    P,
+    ButtonContainer,
+    Button,
+    VideoPlayer
+} from '../../styles/slug.styles'
 
 const Video = ({ video }) => {
     const [watching, setWatching] = useState(false)
-    const { bigThumbnail, title, tag, description, slug, mp4 } = video
+    const { bigThumbnail, title, subtitle, tag, description, slug, mp4 } = video
 
     return (
         <>
             <Wrapper>
                 <InnerWrapper>
                     {!watching &&
-                        <Img
-                            src={bigThumbnail.url}
-                            alt={title}
-                        />
-
+                        <ImageWrapper>
+                            <Img
+                                src={bigThumbnail.url}
+                                alt={title}
+                            />
+                        </ImageWrapper>
                     }
                     {!watching &&
-                        <Info>
-                            <p>{tag.join(', ')}</p>
-                            <p>{description}</p>
-                            <Link href="/" passHref>
-                                <a>back</a>
-                            </Link>
-                            <button
-                                onClick={() => {
-                                    changeToSeen(slug)
-                                    watching ? setWatching(false) : setWatching(true)
-                                }}
-                            >PLAY</button>
-                        </Info>
+                        <>
+                            <Info>
+                                <H2>{title}</H2>
+                                <H3>{subtitle}</H3>
+                                <H5>{tag.join(', ')}</H5>
+                                <P>{description}</P>
+                                <ButtonContainer>
+                                    <div
+                                        onClick={() => {
+                                            changeToSeen(slug)
+                                            watching ? setWatching(false) : setWatching(true)
+                                        }}
+                                    >
+                                        <Button className="play">play</Button>
+                                    </div>
+                                    <Link href="/" passHref>
+                                        <Button className="back">back</Button>
+                                    </Link>
+                                </ButtonContainer>
+                            </Info>
+                            <VideoPlayer autoPlay muted>
+                                <source src={mp4.url} type="video/mp4" />
+                            </VideoPlayer>
+                        </>
                     }
                     {watching &&
                         <video controls autoPlay>
@@ -68,6 +93,7 @@ export const getServerSideProps = async (pageContext) => {
                 createdAt
                 id,
                 title,
+                subtitle,
                 tag,
                 description,
                 seen,
