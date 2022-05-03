@@ -8,6 +8,7 @@ import { MovieSection } from '../components/moviesSection'
 import { FooterSection } from '../components/footer'
 import { ToSlug } from '../components/animations/toSlug'
 import { FadeTransition } from '../components/animations/fadeTransition'
+import { TopMenu } from '../components/menu/topbar'
 
 const Home = ({ videos, account }) => {
   const { isOpen, setIsOpen } = useContext(PageContext)
@@ -26,6 +27,7 @@ const Home = ({ videos, account }) => {
 
   return (
     <>
+
       {handleSlugTransition(isOpen)}
 
       <Head>
@@ -35,6 +37,7 @@ const Home = ({ videos, account }) => {
       </Head>
 
       <FadeTransition>
+        <TopMenu account={account} />
         <HomeWrapper >
           <HeroSection videos={videos} />
           <MovieSection videos={videos} />

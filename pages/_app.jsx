@@ -3,7 +3,6 @@ import { movieTheme, GlobalStyle } from '../styles/globalStyle'
 import { Layout } from '../components/layout'
 import { AnimatePresence } from "framer-motion"
 
-
 function MyApp({ Component, pageProps, router }) {
   return (
     <>
