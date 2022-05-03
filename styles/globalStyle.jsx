@@ -40,6 +40,7 @@ export const GlobalStyle = createGlobalStyle`
     
     a {
       text-decoration: none;
+      color: #ffffff;
     }
     
     ul, li {
