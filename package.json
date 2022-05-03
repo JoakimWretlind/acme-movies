@@ -9,9 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^6.3.3",
+    "graphql": "^16.4.0",
+    "graphql-request": "^4.2.0",
     "next": "12.1.4",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "styled-components": "^5.3.5",
+    "swiper": "^8.1.4"
   },
   "devDependencies": {
     "eslint": "8.13.0",
