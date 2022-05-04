@@ -13,7 +13,8 @@ import {
     P,
     ButtonContainer,
     Button,
-    VideoPlayer
+    VideoPlayer,
+    Player
 } from '../../styles/slug.styles'
 import { motion } from 'framer-motion'
 
@@ -21,25 +22,8 @@ const Video = ({ video }) => {
     const [watching, setWatching] = useState(false)
     const { bigThumbnail, title, subtitle, tag, description, slug, mp4 } = video
 
-    const container = {
-        initial: { opacity: 0 },
-        animate: {
-            opacity: 1,
-            transition: {
-                delay: 1.25,
-                duration: 1.4,
-                ease: [0.6, 0.01, -0.05, 0.95]
-            }
-        }
-    }
-
-    const item = {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        transition: {
-            delay: 1.75,
-            duration: .7
-        }
+    const handlePlay = () => {
+        console.log('handle play')
     }
 
     return (
@@ -102,7 +86,7 @@ const Video = ({ video }) => {
                                             watching ? setWatching(false) : setWatching(true)
                                         }}
                                     >
-                                        <Button className="play">play</Button>
+                                        <Button className="play" onClick={handlePlay}>play</Button>
                                     </div>
                                     <Link href="/" passHref>
                                         <Button className="back">back</Button>
@@ -120,9 +104,9 @@ const Video = ({ video }) => {
                         </>
                     }
                     {watching &&
-                        <video controls autoPlay>
+                        <Player controls autoPlay>
                             <source src={mp4.url} type="video/mp4" />
-                        </video>
+                        </Player>
                     }
                     <div className="footer"
                         onClick={() => watching ? setWatching(false) : null} >

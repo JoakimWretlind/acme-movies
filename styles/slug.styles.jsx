@@ -101,6 +101,9 @@ export const Button = styled.a`
     &.back {
         background-color: rgba(0,0,0,.7);
     }
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 /** VIDEO **/
@@ -112,6 +115,36 @@ export const VideoPlayer = styled.video`
     border-radius: 1rem;
     opacity: .5;
     z-index: 3;
+`;
+
+const player = keyframes`
+   0% {
+        opacity: 0;
+        top: 53vh;
+        left: 52%;
+        height: 20vh;
+        border-radius: 1rem;
+    }
+    25% {
+        opacity: 0;
+        top: 53vh;
+        left: 52%;
+        height: 20vh;
+        border-radius: 1rem;
+    }
+    100% {
+        opacity: 1;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        border-radius: 0;
+  } 
+`
+
+export const Player = styled.video`
+    position: absolute;   
+    z-index: 3;
+    animation: 1.5s  ${player};
 `;
 
 /******* THEM IMAGE *******/
