@@ -15,10 +15,32 @@ import {
     Button,
     VideoPlayer
 } from '../../styles/slug.styles'
+import { motion } from 'framer-motion'
 
 const Video = ({ video }) => {
     const [watching, setWatching] = useState(false)
     const { bigThumbnail, title, subtitle, tag, description, slug, mp4 } = video
+
+    const container = {
+        initial: { opacity: 0 },
+        animate: {
+            opacity: 1,
+            transition: {
+                delay: 1.25,
+                duration: 1.4,
+                ease: [0.6, 0.01, -0.05, 0.95]
+            }
+        }
+    }
+
+    const item = {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: {
+            delay: 1.75,
+            duration: .7
+        }
+    }
 
     return (
         <>
@@ -34,12 +56,46 @@ const Video = ({ video }) => {
                     }
                     {!watching &&
                         <>
-                            <Info>
-                                <H2>{title}</H2>
-                                <H3>{subtitle}</H3>
-                                <H5>{tag.join(', ')}</H5>
-                                <P>{description}</P>
-                                <ButtonContainer>
+                            <Info
+                                as={motion.ul}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{
+                                    delay: 1.25,
+                                    duration: 1.4,
+                                    ease: [0.6, 0.01, -0.05, 0.95]
+                                }}
+                            >
+                                <H2
+                                    as={motion.li}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 1.75, duration: .7 }}
+                                >{title}</H2>
+                                <H3
+                                    as={motion.li}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 1.85, duration: .7 }}
+                                >{subtitle}</H3>
+                                <H5
+                                    as={motion.li}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 1.85, duration: .7 }}
+                                >{tag.join(', ')}</H5>
+                                <P
+                                    as={motion.li}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 1.95, duration: .7 }}
+                                >{description}</P>
+                                <ButtonContainer
+                                    as={motion.li}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 2.05, duration: .7 }}
+                                >
                                     <div
                                         onClick={() => {
                                             changeToSeen(slug)
@@ -53,7 +109,12 @@ const Video = ({ video }) => {
                                     </Link>
                                 </ButtonContainer>
                             </Info>
-                            <VideoPlayer autoPlay muted>
+                            <VideoPlayer autoPlay muted
+                                as={motion.video}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 0.3 }}
+                                transition={{ delay: 2.55, duration: .5 }}
+                            >
                                 <source src={mp4.url} type="video/mp4" />
                             </VideoPlayer>
                         </>

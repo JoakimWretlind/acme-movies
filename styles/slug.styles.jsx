@@ -140,8 +140,7 @@ const growImage = keyframes`
 const overlayImg = keyframes`
    0% {
         opacity: 0;
-        height: 0;
-        
+        height: 0;        
     }
     50%{
         opacity: 0;  
@@ -176,9 +175,15 @@ export const ImageWrapper = styled.div`
 
 
 export const Img = styled.img`   
-    width: 100vw;
+    height: 100vh;
+    /* width: 100vw; */
     object-fit: cover;
     animation: 1.2s  ${growImage};
-    z-index: 0;   
+    z-index: 0;  
+    @media (min-aspect-ratio: 16/9) {
+        width: 100vw;
+        object-fit: cover;
+        animation: 1.2s  ${growImage};
+        z-index: 0;
+    }
 `;
-
