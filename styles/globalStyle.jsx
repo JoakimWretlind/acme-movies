@@ -5,6 +5,7 @@ export const movieTheme = {
   // colors
   black: "hsl(240, 5%, 4%)",
   gray: "rgb(121, 121, 121)",
+  offWhite: "hsl(60, 5.7%, 89.6%)",
   red: "hsl(0, 75%, 36%)",
   white: "hsl(0, 0%, 100%)",
 

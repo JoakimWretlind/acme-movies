@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 // import { MotionOverlay, Panel } from '../../styles/common.style';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 // Set the grid-template-columns to repeat the same amount of panels in 
 // '/components/animations/toDetailsTransition', 1fr will make them even
@@ -16,8 +16,7 @@ export const MotionOverlay = styled.div`
 
 export const Panel = styled.div`
     height: 100vh;
-    /* background-color: ${props => props.theme.red}; */
-    background-color: #E6E6E3;
+    background-color: ${props => props.theme.offWhite};   
 `;
 
 // How many panels we want

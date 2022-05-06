@@ -1,5 +1,14 @@
 import styled, { keyframes } from 'styled-components';
 
+const wrap = keyframes`
+    0%{
+        background-color: hsl(60, 5.7%, 89.6%);
+    }
+    100%{
+        background-color: hsl(240, 5%, 4%);
+    }
+`
+
 export const Wrapper = styled.div`
     margin-top: 0vh;
     overflow: hidden;
@@ -8,8 +17,8 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: ${props => props.theme.red};     */
-    background-color: #E6E6E3;
+    background-color: ${props => props.theme.black};    
+    animation: 2s ${wrap};
 `;
 
 export const InnerWrapper = styled.div`
@@ -31,7 +40,7 @@ export const Info = styled.div`
     flex-direction: column;
     justify-content: flex-start; // flex-start to easier calculate margins
     align-items: flex-start;
-    z-index: 3;
+    z-index: 2;
     backdrop-filter: blur(.3rem);
     background: rgba(0,0,0,.3);
     padding: 1rem 3rem 3rem;
@@ -113,43 +122,56 @@ export const VideoPlayer = styled.video`
     left: 52%;
     height: 20vh;
     border-radius: 1rem;
-    opacity: .5;
+    opacity: 1;
     z-index: 3;
+    &::after{
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        left: 0;
+    }
 `;
 
 const player = keyframes`
    0% {
-        opacity: 0;
+        opacity: 0.3;
         top: 53vh;
         left: 52%;
         height: 20vh;
-        border-radius: 1rem;
+        border-radius: 1rem;       
+    } 
+    30%{
+        height: 20vh;
+        left: 50%;
+        transform: translateX(-50%);
     }
-    25% {
-        opacity: 0;
-        top: 53vh;
-        left: 52%;
-        height: 20vh;
-        border-radius: 1rem;
+    40%{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    50%{
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40vw;
     }
     100% {
         opacity: 1;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        border-radius: 0;
+        left: 50%;
+        transform: translate(-50%);
+        width: 100vw;
+        border-radius:0;
   } 
 `
-
 export const Player = styled.video`
-    position: absolute;   
-    z-index: 3;
-    animation: 1.5s  ${player};
+    position: absolute; 
+    /* // animation: 2s ${player}; */
 `;
 
 /******* THEM IMAGE *******/
 // Use keyframes here because that's the most effective way
 // to make this transition smooth.
+// to prevent staggering and glitches on different screensizes,
+// it's best to transform the heigt first
 const growImage = keyframes`
    0% {
         opacity: 0;
@@ -157,14 +179,19 @@ const growImage = keyframes`
         width: 0;
         animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
     }
-    57%{
+    22%{
+        opacity: 1;
+        height: 100vh;
+        width: 50vw;
+    }
+    52%{
         opacity: 1;        
-        height: 50vh;
-        width: 100vw;
+        height: 100vh;
+        width: 50vw;
         animation-timing-function: cubic-bezier(.13,.45,.93,.71);
     }
     100% {
-        height: 100vh;
+        width: 100vw;
   } 
 `
 
@@ -173,18 +200,29 @@ const growImage = keyframes`
 const overlayImg = keyframes`
    0% {
         opacity: 0;
-        height: 0;        
+        height: 0vh;
+        width: 0;
+        animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
     }
-    50%{
-        opacity: 0;  
+    25%{
+        opacity: 1;
+        height: 100vh;
+        width: 50vw;
+    }    
+    47%{
+        opacity: 1;
+        height: 100vh;
+        width: 50vw;
+        animation-timing-function: cubic-bezier(.13,.45,.93,.71);
     }
     100% {
-        opacity: 1
-        height: 100vh;
+        width: 100vw;
   } 
 `
 
 // This is needed for the overlay
+// We need ::after so that the darkener color doesn't appear
+// to soon and ruins the transition
 export const ImageWrapper = styled.div`
     position: relative;
     height: 100vh;
@@ -195,28 +233,31 @@ export const ImageWrapper = styled.div`
     &::after{
         content: ""; // ::before and ::after both require content
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         width: 100vw;
         height: 100%;
         background-image: radial-gradient(rgba(0,0,0,.1), rgba(0,0,0,.7));
         opacity: .7;
         z-index: 2;
-        animation: 1.5s  ${overlayImg};
+        animation: 1.2s  ${overlayImg};
     }
 `;
 
 
 export const Img = styled.img`   
     height: 100vh;
-    /* width: 100vw; */
     object-fit: cover;
     animation: 1.2s  ${growImage};
     z-index: 0;  
+    // the aspect-ration is needed to make transitions
+    // the same regardles of screensize (instead of switching
+    // between height and width at exact screenheights and
+    // screenwidths)
     @media (min-aspect-ratio: 16/9) {
         width: 100vw;
         object-fit: cover;
-        animation: 1.2s  ${growImage};
         z-index: 0;
     }
 `;
