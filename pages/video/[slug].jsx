@@ -1,142 +1,107 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react';
 import Link from 'next/link'
 import { gql, GraphQLClient } from 'graphql-request'
-import { motion, AnimatePresence } from 'framer-motion'
+import { gsap } from 'gsap'
+import { CustomEase } from 'gsap/dist/CustomEase';
 import {
     Wrapper,
-    InnerWrapper,
+    // InnerWrapper,
     ImageWrapper,
-    Info,
     Img,
+    Info,
+    ButtonContainer,
+    Button,
+    /**  VIDEO **/
+    VideoPlayer,
+    PlayerWrapper,
+    Player,
+    Close,
+    /** TEXT **/
     H2,
     H3,
     H5,
-    P,
-    ButtonContainer,
-    Button,
-    VideoPlayer,
-    Player
-} from '../../styles/slug.styles'
+    P
+} from "../../styles/slug.styles"
+import { motion } from 'framer-motion';
 
-const infoAnimation = {
-    key: "box",
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    transition: {
-        delay: 1.25,
-        duration: 1.4,
-        ease: [0.6, 0.01, -0.05, 0.95]
-    },
-    exit: {
-        animate: {
-            opacity: 0,
-            transition: {
-                delay: 2,
-                duration: 2
-            }
-        }
-    }
-}
+gsap.registerPlugin(CustomEase);
 
 const Video = ({ video }) => {
-    const [watching, setWatching] = useState(false)
+    const [isVideo, setIsVideo] = useState(false)
     const { bigThumbnail, title, subtitle, tag, description, slug, mp4 } = video
+    let myVid = mp4.url
+    const videoRef = useRef(null)
+
+    const handleVideopPlayer = () => {
+        const tl = gsap.timeline()
+
+        tl.to(videoRef.current, {
+            width: "100vw",
+            left: "0",
+            yPercent: -50,
+            top: "50%",
+            position: "absolute",
+            duration: .8,
+            ease: CustomEase.create("custom", "M0,0,C0.558,0.282,0.87,0.454,1,1")
+        })
+    }
+
+    const handleClick = (isVideo) => {
+        if (isVideo == true) {
+            handleVideopPlayer()
+            return (
+                <>
+                    <PlayerWrapper>
+                        <Player
+                            controls
+                            autoPlay
+                            as={motion.video}
+                            initial={{ opacity: 0 }}
+                            animate={{
+                                opacity: 1,
+                                transition: {
+                                    delay: 2,
+                                    duration: .7
+                                }
+                            }}
+                        >
+                            <source controls src={myVid} type="video/mp4" />
+                        </Player>
+                        <Link href="/" passHref>
+                            <Close>home</Close>
+                        </Link>
+                    </PlayerWrapper>
+                </>
+            )
+        }
+    }
 
     return (
         <>
-
+            {/* {router.query.playing && ( */}
+            {/* {handleVideopPlayer(isVideo), handleClick(isVideo)} */}
+            {handleClick(isVideo)}
+            {/* )} */}
             <Wrapper>
-                <AnimatePresence>
-                    <motion.div
-                        key="main"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{
-                            animate: {
-                                opacity: 0,
-                                transition: {
-                                    delay: 2,
-                                    duration: 1
-                                }
-                            }
-                        }}
-                    >
-                        <InnerWrapper>
-                            <AnimatePresence>
-                                {!watching &&
-                                    <ImageWrapper>
-                                        <Img src={bigThumbnail.url} alt={title} />
-                                    </ImageWrapper>
-                                }
-                            </AnimatePresence>
-                            {!watching &&
-                                <motion.div {...infoAnimation}>
-                                    <Info>
-                                        <H2
-                                            as={motion.li}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: 1.75, duration: .7 }}
-                                        >{title}</H2>
-                                        <H3
-                                            as={motion.li}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: 1.85, duration: .7 }}
-                                        >{subtitle}</H3>
-                                        <H5
-                                            as={motion.li}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: 1.85, duration: .7 }}
-                                        >{tag.join(', ')}</H5>
-                                        <P
-                                            as={motion.li}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: 1.95, duration: .7 }}
-                                        >{description}</P>
-                                        <ButtonContainer
-                                            as={motion.li}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: 2.05, duration: .7 }}
-                                        >
-                                            <div
-                                                onClick={() => {
-                                                    changeToSeen(slug)
-                                                    watching ? setWatching(false) : setWatching(true)
-                                                }}
-                                            >
-                                                <Button className="play">play</Button>
-                                            </div>
-                                            <Link href="/" passHref>
-                                                <Button className="back">back</Button>
-                                            </Link>
-                                        </ButtonContainer>
-                                    </Info>
-                                    <VideoPlayer autoPlay muted
-                                        as={motion.video}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 0.3 }}
-                                        when to enter
-                                        transition={{ delay: 2.4, duration: .6 }}
-                                    >
-                                        <source src={mp4.url} type="video/mp4" />
-                                    </VideoPlayer>
-                                </motion.div>
-                            }
-
-                            {watching &&
-                                <>
-                                    <Player controls autoPlay>
-                                        <source src={mp4.url} type="video/mp4" />
-                                    </Player>
-                                </>
-                            }
-                        </InnerWrapper>
-                    </motion.div>
-                </AnimatePresence>
+                {/** ImageWrapper adds an overlay */}
+                <ImageWrapper isVideo={isVideo}>
+                    <Img src={bigThumbnail.url} alt={title} />
+                </ImageWrapper>
+                <Info>
+                    <H2>{title}</H2>
+                    <H3>{subtitle}</H3>
+                    <H5>{tag.join(', ')}</H5>
+                    <P>{description}</P>
+                    <ButtonContainer>
+                        <Button className="play" onClick={() => { setIsVideo(!isVideo) }}>watch</Button>
+                        <Link href="/" passHref>
+                            <Button className="back">back</Button>
+                        </Link>
+                    </ButtonContainer>
+                </Info>
+                <VideoPlayer autoPlay muted ref={videoRef} isVideo={isVideo}>
+                    <source src={myVid} type="video/mp4" />
+                </VideoPlayer>
             </Wrapper>
         </>
     )
@@ -144,7 +109,7 @@ const Video = ({ video }) => {
 
 export default Video
 
-/** GET DATA **/
+/***************** GET DATA *****************/
 export const getServerSideProps = async (pageContext) => {
     const url = process.env.ENDPOINT
     const graphQLClient = new GraphQLClient(url, {
