@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link'
 import { gql, GraphQLClient } from 'graphql-request'
 import { gsap } from 'gsap'
@@ -28,11 +28,29 @@ gsap.registerPlugin(CustomEase);
 
 const Video = ({ video }) => {
     const [isVideo, setIsVideo] = useState(false)
-    const { bigThumbnail, title, subtitle, tag, description, slug, mp4 } = video
+    const { bigThumbnail, title, subtitle, tag, description, mp4 } = video
     let myVid = mp4.url
     const videoRef = useRef(null)
+    const infoRef = useRef(null)
+    const infoTargetRefs = useRef([])
+    infoTargetRefs.current = []
 
-    const handleVideopPlayer = () => {
+    useEffect(() => {
+        const tl = gsap.timeline()
+        tl.fromTo(infoRef.current, { autoAlpha: 0 }, {
+            autoAlpha: 1, duration: .7, ease: CustomEase.create("custom", "M0,0,C0.542,0.19,0.964,0.534,1,1")
+        }, 1)
+        gsap.utils.toArray(infoTargetRefs.current).forEach((item, i) => {
+            gsap.fromTo(item, { autoAlpha: 0 }, {
+                autoAlpha: 1, duration: .7, delay: 1.8 + i * 0.2, ease: CustomEase.create("custom", "M0,0,C0.542,0.19,0.964,0.534,1,1")
+            })
+        })
+        gsap.fromTo(videoRef.current, { autoAlpha: 0 }, {
+            autoAlpha: 0.3, duration: .7, delay: 2, ease: CustomEase.create("custom", "M0,0,C0.542,0.19,0.964,0.534,1,1")
+        })
+    }, [])
+
+    const handleVideoPlayer = () => {
         const tl = gsap.timeline()
 
         tl.to(videoRef.current, {
@@ -42,19 +60,29 @@ const Video = ({ video }) => {
             top: "50%",
             position: "absolute",
             duration: .8,
+            opacity: .4,
             ease: CustomEase.create("custom", "M0,0,C0.558,0.282,0.87,0.454,1,1")
+        })
+        tl.to(videoRef.current, {
+            duration: .5,
+            opacity: 0,
+            ease: CustomEase.create("custom", "M0,0,C0.558,0.282,0.87,0.454,1,1")
+        }, ">.2")
+        gsap.to(infoRef.current, {
+            opacity: 0,
+            duration: .4
         })
     }
 
     const handleClick = (isVideo) => {
         if (isVideo == true) {
-            handleVideopPlayer()
+            handleVideoPlayer()
             return (
                 <>
                     <PlayerWrapper>
                         <Player
                             controls
-                            autoPlay
+                            // autoPlay
                             as={motion.video}
                             initial={{ opacity: 0 }}
                             animate={{
@@ -76,26 +104,29 @@ const Video = ({ video }) => {
         }
     }
 
+    const addToRefs = (e) => {
+        if (e && !infoTargetRefs.current.includes(e)) {
+            infoTargetRefs.current.push(e)
+        }
+    }
+
     return (
         <>
-            {/* {router.query.playing && ( */}
-            {/* {handleVideopPlayer(isVideo), handleClick(isVideo)} */}
             {handleClick(isVideo)}
-            {/* )} */}
             <Wrapper>
                 {/** ImageWrapper adds an overlay */}
                 <ImageWrapper isVideo={isVideo}>
                     <Img src={bigThumbnail.url} alt={title} />
                 </ImageWrapper>
-                <Info>
-                    <H2>{title}</H2>
-                    <H3>{subtitle}</H3>
-                    <H5>{tag.join(', ')}</H5>
-                    <P>{description}</P>
+                <Info ref={infoRef}>
+                    <H2 ref={addToRefs}>{title}</H2>
+                    <H3 ref={addToRefs}>{subtitle}</H3>
+                    <H5 ref={addToRefs}>{tag.join(', ')}</H5>
+                    <P ref={addToRefs}>{description}</P>
                     <ButtonContainer>
-                        <Button className="play" onClick={() => { setIsVideo(!isVideo) }}>watch</Button>
+                        <Button className="play" onClick={() => { setIsVideo(!isVideo) }} ref={addToRefs}>watch</Button>
                         <Link href="/" passHref>
-                            <Button className="back">back</Button>
+                            <Button className="back" ref={addToRefs}>back</Button>
                         </Link>
                     </ButtonContainer>
                 </Info>

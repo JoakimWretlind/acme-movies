@@ -1,7 +1,6 @@
 import { MoviesSection } from "./style"
 import { Sliders } from "./sliders"
 import { motion } from 'framer-motion'
-import { FadeTransition } from "../animations/fadeTransition"
 
 export const MovieSection = ({ videos }) => {
     const filterVideos = (videos, genre) => {

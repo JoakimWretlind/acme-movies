@@ -26,7 +26,7 @@ const growImage = keyframes`
         height: 100vh;
         width: 50vw;
     }
-    52%{
+    53%{
         opacity: 1;        
         height: 100vh;
         width: 50vw;
@@ -94,14 +94,14 @@ export const ImageWrapper = styled.div`
         height: 100%;
         background-image: radial-gradient(rgba(0,0,0,.1), rgba(0,0,0,.7));
         z-index: 2;       
-        animation: 1.2s  ${overlayImg};
+        animation: 1s  ${overlayImg};
     }
 `;
 
 export const Img = styled.img`   
     height: 100vh;
     object-fit: cover;
-    animation: 1.2s  ${growImage};
+    animation: 1s  ${growImage};
     z-index: 0;  
     // the aspect-ration is needed to make transitions
     // the same regardles of screensize (instead of switching
@@ -173,7 +173,7 @@ export const VideoPlayer = styled.video`
     width: 20vw;
     border-radius: 1rem;
     opacity: 0.3;
-    z-index: ${({ isVideo }) => (isVideo ? "2" : "3")};
+    z-index: ${({ isVideo }) => (isVideo ? "2" : "4")};
 `;
 
 /** PLAYER **/

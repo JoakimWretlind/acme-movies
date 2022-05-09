@@ -7,8 +7,8 @@ import { HeroSection } from '../components/hero'
 import { MovieSection } from '../components/moviesSection'
 import { FooterSection } from '../components/footer'
 import { ToSlug } from '../components/animations/toSlug'
-import { FadeTransition } from '../components/animations/fadeTransition'
 import { TopMenu } from '../components/menu/topbar'
+import { LeftMenu } from '../components/menu/leftBar'
 
 const Home = ({ videos, account }) => {
   const { isOpen, setIsOpen } = useContext(PageContext)
@@ -37,14 +37,13 @@ const Home = ({ videos, account }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <FadeTransition>
-        <TopMenu account={account} />
-        <HomeWrapper >
-          <HeroSection videos={videos} />
-          <MovieSection videos={videos} />
-          <FooterSection />
-        </HomeWrapper>
-      </FadeTransition>
+      <TopMenu account={account} />
+      <LeftMenu videos={videos} />
+      <HomeWrapper >
+        <HeroSection videos={videos} />
+        <MovieSection videos={videos} />
+        <FooterSection />
+      </HomeWrapper>
     </>
   )
 }
