@@ -1,24 +1,31 @@
 import Link from 'next/link';
 import { LeftNav, LeftUL, LeftLI, Img } from "./style"
-import { genreData } from '../../data/genreData'
 
 export const LeftMenu = () => {
     return (
         <LeftNav>
             <LeftUL>
-                {genreData.map(item => {
-                    const { id, path, src } = item
-                    return (
-                        <div key={id}>
-                            <Link href={`${path}`} passHref>
-                                <LeftLI>
-                                    <Img src={src} />
-                                </LeftLI>
-                            </Link>
-                        </div>
-                    )
-                })}
+                <Link href={`/genre/action`} passHref scroll={false} >
+                    <LeftLI>
+                        <Img src="/images/action.png" />
+                    </LeftLI>
+                </Link>
+                <Link href={`/genre/kids`} passHref scroll={false}>
+                    <LeftLI>
+                        <Img genre={'kids'} src="/images/kids.png" />
+                    </LeftLI>
+                </Link>
+                <Link href={`/genre/comedy`} passHref scroll={false}>
+                    <LeftLI>
+                        <Img genre={'comedy'} src="/images/comedy.png" />
+                    </LeftLI>
+                </Link>
+                <Link href={`/genre/drama`} passHref scroll={false}>
+                    <LeftLI>
+                        <Img genre={'drama'} src="/images/drama.png" />
+                    </LeftLI>
+                </Link>
             </LeftUL>
-        </LeftNav>
+        </LeftNav >
     )
 }

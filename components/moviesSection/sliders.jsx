@@ -6,7 +6,6 @@ import { Container, SliderItem, Img, ButtonContainer, Button, H3, H5 } from './s
 import 'swiper/css';
 
 export const Sliders = ({ genre, videos }) => {
-    // const { value, setValue } = useContext(PageContext)
     const { setIsOpen } = useContext(PageContext)
 
     return (
