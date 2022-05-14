@@ -9,7 +9,7 @@ export const LeftNav = styled.nav`
     display: flex;
     background-color: rgba(0,0,0,.5);
     border-right: .1rem solid ${props => props.theme.gray};
-    z-index: 1;
+    z-index: 2;
 `;
 
 export const LeftUL = styled.ul`
