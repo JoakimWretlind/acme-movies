@@ -1,4 +1,3 @@
-
 import { gql, GraphQLClient } from 'graphql-request'
 import { GenreSlide } from './genres'
 
@@ -44,8 +43,6 @@ export const getStaticProps = async () => {
         }
       }
     }`
-
-
 
   const data = await graphQLClient.request(videosQuery)
   const videos = data.videos

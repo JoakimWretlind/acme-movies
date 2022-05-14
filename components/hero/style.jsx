@@ -7,24 +7,13 @@ export const Hero = styled.section`
     grid-column: 1 / -1;    
 `;
 
-// MAIN HERO LAYOUT
-export const Article = styled.article`
-    position: relative;
-    width: 100%;
-    opacity: 0;
-    transition: all 1s linear; 
-    &.activeSlide {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    &.lastSlide {
-        opacity: 0;
-    }
-    &.nextSlide {
-        opacity: 0;
-}
+// This one is needed for swiper to be able
+// to hold a full page image instead of using
+// a background-image
+export const MainContainer = styled.div`
+    height: 100vh;
+    width: 100%;    
 `;
-
 
 // HERO MAIN IMAGE SETTINGS
 export const Img = styled.img`
@@ -37,17 +26,6 @@ export const Img = styled.img`
     object-fit: cover;    
 `;
 
-// HERO OVERLAY - BASE FOR INNER CONTENT
-export const Overlay = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    background: radial-gradient(rgba(0,0,0,.1), rgba(0,0,0,.7));
-    box-shadow: inset 0 -.3rem 1rem rgba(224, 224, 224,.15);
-`;
-
 // CONTAINER FOR THE INFORMATION
 export const Container = styled.div`
     position: absolute;
@@ -58,7 +36,7 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start; // flex-start to easier calculate margins
     align-items: flex-start;
-    z-index: 3;   
+    z-index: 3;  
 `;
 
 // GENRE

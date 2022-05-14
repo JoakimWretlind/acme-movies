@@ -53,6 +53,10 @@ export const GlobalStyle = createGlobalStyle`
     ul, li {
       list-style: none;
     }
+
+    // Swiper requires it own elements, so to be able to 
+    // style these, we need to use classNames
+    /******* Slider for categories *******/
     .swiper {
       height: 100%;
     }
@@ -60,4 +64,36 @@ export const GlobalStyle = createGlobalStyle`
       display: flex;
       justify-content: center;
     }
+
+    /******* Slider for the hero (parallax) *******/
+    .heroSwiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .heroSlide {
+      width: 100%;
+      height: 100%;
+      -webkit-background-size: cover;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .swiperSlide{
+      height: 100vh;
+      width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+}
+    // use ::after to create an overlay over the image
+    .swiperSlide::after{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100%;
+      background-image: radial-gradient(rgba(0,0,0,0), 50%, rgba(0,0,0,.7));
+}
 `;

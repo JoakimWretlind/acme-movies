@@ -13,15 +13,6 @@ export const MotionOverlay = styled.div`
     z-index: 99;
 `;
 
-const bg = keyframes`
-    0%{
-        background-color: green;
-    }
-    100%{
-        background-color: green;
-    }
-`
-
 export const Panel = styled.div`
     height: 100vh;
     /* background-color: ${props => props.theme.red}; */
