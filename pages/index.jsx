@@ -51,6 +51,7 @@ const Home = ({ videos, account }) => {
 /** GET DATA **/
 export const getStaticProps = async () => {
   const url = process.env.ENDPOINT
+  // to communicate with the database (as in grapQL documentations)
   const graphQLClient = new GraphQLClient(url, {
     headers: {
       "Authorization": process.env.GRAPH_CMS_TOKEN

@@ -4,6 +4,78 @@ import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Container, SliderItem, Img, ButtonContainer, Button, H3, H5 } from './style'
 import 'swiper/css';
+import { gql, GraphQLClient } from 'graphql-request'
+
+export const getServerSideProps = async (pageContext) => {
+    const url = process.env.ENDPOINT
+    const graphQLClient = new GraphQLClient(url, {
+        headers: {
+            "Authorization": process.env.GRAPH_CMS_TOKEN
+        }
+    })
+
+    const pageSlug = pageContext.query.slug
+
+    const query = gql`
+        query($pageSlug: String!) {
+            video(where: {
+                slug: $pageSlug
+                }) {
+                createdAt
+                id,
+                title,
+                tag,
+                description,
+                myList,
+                slug,
+                thumbnail{
+                    url
+                },
+                bigThumbnail{
+                    url
+                },
+                mp4{
+                    url
+            }
+        }
+    }
+    `
+
+    const variables = {
+        pageSlug
+    }
+
+    const data = await graphQLClient.request(query, variables)
+    const video = data.video
+
+    return {
+        props: {
+            video
+        }
+    }
+}
+
+// Remove videos from my list
+const removeMyList = async (slug) => {
+    await fetch('/api/removeMyList', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ slug })
+    })
+}
+
+// Add videos to my list
+const addMyList = async (slug) => {
+    await fetch('/api/addMyList', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ slug })
+    })
+}
 
 export const Sliders = ({ genre, videos }) => {
     const { setIsOpen } = useContext(PageContext)
@@ -52,7 +124,8 @@ export const Sliders = ({ genre, videos }) => {
                                             watch
                                         </Button>
                                     </Link>
-                                    <Button>+ my list</Button>
+                                    <Button onClick={() => { addMyList(slug) }}>+ my list</Button>
+                                    <Button className="watch" onClick={() => { removeMyList(slug) }}>- my list</Button>
                                 </ButtonContainer>
                             </SliderItem>
                         </SwiperSlide>

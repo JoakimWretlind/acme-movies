@@ -1,3 +1,4 @@
+import { gql, GraphQLClient } from 'graphql-request'
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Hero, MainContainer, Img, Container, H5, Border, H2, TextContainer, P, ButtonContainer, Button, Overlay } from "./style"
@@ -7,6 +8,68 @@ import "swiper/css";
 
 // import required modules
 import { Parallax, Autoplay, } from "swiper";
+
+////////////////////////////////////////
+
+export const getServerSideProps = async (pageContext) => {
+    const url = process.env.ENDPOINT
+    const graphQLClient = new GraphQLClient(url, {
+        headers: {
+            "Authorization": process.env.GRAPH_CMS_TOKEN
+        }
+    })
+
+    const pageSlug = pageContext.query.slug
+
+    const query = gql`
+        query($pageSlug: String!) {
+            video(where: {
+                slug: $pageSlug
+                }) {
+                createdAt
+                id,
+                title,
+                tag,
+                description,
+                myList,
+                slug,
+                thumbnail{
+                    url
+                },
+                bigThumbnail{
+                    url
+                },
+                mp4{
+                    url
+            }
+        }
+    }
+    `
+
+    const variables = {
+        pageSlug
+    }
+
+    const data = await graphQLClient.request(query, variables)
+    const video = data.video
+
+    return {
+        props: {
+            video
+        }
+    }
+}
+
+// Add videos to my list
+const addMyList = async (slug) => {
+    await fetch('/api/addMyList', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ slug })
+    })
+}
 
 export const HeroSection = ({ videos }) => {
     // create an array where we can put the items that
@@ -67,7 +130,7 @@ export const HeroSection = ({ videos }) => {
                                                     watch
                                                 </Button>
                                             </Link>
-                                            <Button data-swiper-parallax="-3500">
+                                            <Button data-swiper-parallax="-3500" onClick={() => { addMyList(slug) }}>
                                                 + my list
                                             </Button>
                                         </ButtonContainer>

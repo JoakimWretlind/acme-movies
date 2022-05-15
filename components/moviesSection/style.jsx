@@ -80,4 +80,7 @@ export const Button = styled.a`
         background-color: ${props => props.theme.red};
         border: .1rem solid transparent
     }
+    &:hover{
+        cursor: pointer;
+    }
 `;
