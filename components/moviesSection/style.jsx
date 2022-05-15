@@ -6,18 +6,23 @@ export const MoviesSection = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 4rem 1.5rem 4rem .75rem;
+    padding: 7rem 0 11rem;  
 `;
 
 export const Container = styled.div`
     overflow: hidden;
-    height: 100%;
+    height: 45rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 4rem;
 `;
 
 export const H3 = styled.h3`
     text-transform: uppercase;
-    font-size: 2rem;
-    margin: 5rem 0 1rem 7rem;
+    font-size: 2.4rem;
+    margin: 0rem 0 0rem 7rem;
     font-weight: 300;
     letter-spacing: 1rem;
 `;

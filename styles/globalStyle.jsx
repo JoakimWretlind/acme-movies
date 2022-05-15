@@ -20,6 +20,10 @@ export const GlobalStyle = createGlobalStyle`
   src: local("alexbrush"), url('/fonts/AlexBrush.ttf') format("truetype");
 }
 
+:root {
+  --swiper-navigation-size: 2.5rem;
+}
+
     *,
     ::after,
     ::before {
@@ -30,6 +34,7 @@ export const GlobalStyle = createGlobalStyle`
     
     html {
       font-size: 62.5%;
+      scroll-behavior: smooth;
     }
     
     body {
@@ -38,7 +43,7 @@ export const GlobalStyle = createGlobalStyle`
       background-color: #09090a;
       color: #ffffff;
       width: 100%;
-      overflow-x: hidden;
+      overflow-x: hidden;      
     }
 
     ::-webkit-scrollbar {
@@ -57,12 +62,44 @@ export const GlobalStyle = createGlobalStyle`
     // Swiper requires it own elements, so to be able to 
     // style these, we need to use classNames
     /******* Slider for categories *******/
-    .swiper {
+    .swiper-container {
+      position: relative;
       height: 100%;
+      width: 100%;
     }
+    // single item
     .slider{
+      margin-top: 2rem;
+      height: min-content;
       display: flex;
       justify-content: center;
+      align-items: center;      
+    }
+
+    .swiper-button-prev, .swiper-button-next {
+      margin: 17rem 45% 0 45%;
+      color: #fff;
+    }
+
+    // the container for the pagination
+    // keep z-index at 0, to enable the navigations
+    .swiper-pagination {
+      position: absolute;
+      top: 0rem;
+      z-index: 0;
+    }
+
+    // the bullets for the pagination
+    .swiper-pagination-bullet{
+      height: .5rem;
+      width: 3rem;
+      border-radius: .5rem;
+      background-color: #6e6e6e;
+    }
+
+    // the active pagination bullet
+    .swiper-pagination-bullet-active{
+      background-color: white;
     }
 
     /******* Slider for the hero (parallax) *******/

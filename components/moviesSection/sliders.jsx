@@ -3,9 +3,17 @@ import { PageContext } from '../context/pageContext'
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Container, SliderItem, Img, ButtonContainer, Button, H3, H5 } from './style'
-import 'swiper/css';
 import { gql, GraphQLClient } from 'graphql-request'
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// import required modules
+import { Pagination, Navigation } from "swiper";
+
+/** GET DATA **/
 export const getServerSideProps = async (pageContext) => {
     const url = process.env.ENDPOINT
     const graphQLClient = new GraphQLClient(url, {
@@ -54,6 +62,7 @@ export const getServerSideProps = async (pageContext) => {
         }
     }
 }
+////////////////////////////////////////////
 
 // Remove videos from my list
 const removeMyList = async (slug) => {
@@ -84,8 +93,11 @@ export const Sliders = ({ genre, videos }) => {
         <Container>
             <H3>{genre}</H3>
             <Swiper
-                className="swiper"
+                className="swiper-container"
                 grabCursor="true"
+                navigation={true}
+                pagination={true}
+                modules={[Pagination, Navigation]}
                 breakpoints={{
                     500: {
                         slidesPerView: 2,
