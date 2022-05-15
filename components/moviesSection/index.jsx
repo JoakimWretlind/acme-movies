@@ -3,12 +3,14 @@ import { Sliders } from "./sliders"
 import { motion } from 'framer-motion'
 
 export const MovieSection = ({ videos }) => {
+    // Filter to display video per genre
     const filterVideos = (videos, genre) => {
         return videos.filter((video) => video.tag.includes(genre))
     }
 
-    const unSeenVideos = (videos) => {
-        return videos.filter((video) => video.seen == false || video.seen == null)
+    // Filter to display only those videos that are on myList (my list)
+    const myListVideos = (videos) => {
+        return videos.filter((video) => video.myList == true || video.myList == null)
     }
 
     const variants = {
@@ -26,7 +28,7 @@ export const MovieSection = ({ videos }) => {
                 exit="exit" // Exit state (used later) to variants.exit
                 transition={{ type: 'linear' }} // Set the transition to linear
             >
-                <Sliders genre={'my list'} videos={unSeenVideos(videos, 'my list')} />
+                <Sliders genre={'my list'} videos={myListVideos(videos, 'my list')} />
                 <Sliders genre={'family'} videos={filterVideos(videos, 'family')} />
                 <Sliders genre={'superhero'} videos={filterVideos(videos, 'superhero')} />
                 <Sliders genre={'adventure'} videos={filterVideos(videos, 'adventure')} />
@@ -36,7 +38,6 @@ export const MovieSection = ({ videos }) => {
                 <Sliders genre={'science fiction'} videos={filterVideos(videos, 'science fiction')} />
                 <Sliders genre={'kids'} videos={filterVideos(videos, 'kids')} />
                 <Sliders genre={'criminal'} videos={filterVideos(videos, 'criminal')} />
-                <Sliders genre={'romance'} videos={filterVideos(videos, 'romance')} />
             </MoviesSection>
         </>
     )

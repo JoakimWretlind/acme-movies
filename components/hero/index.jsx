@@ -68,7 +68,7 @@ export const HeroSection = ({ videos }) => {
                                                 </Button>
                                             </Link>
                                             <Button data-swiper-parallax="-3500">
-                                                add to list
+                                                + my list
                                             </Button>
                                         </ButtonContainer>
                                     </Container>

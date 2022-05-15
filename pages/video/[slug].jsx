@@ -162,7 +162,7 @@ export const getServerSideProps = async (pageContext) => {
             subtitle,
             tag,
             description,
-            seen,
+            myList,
             slug,
             thumbnail{
                 url

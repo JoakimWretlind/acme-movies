@@ -94,6 +94,6 @@ export const GlobalStyle = createGlobalStyle`
       left: 0;
       height: 100vh;
       width: 100%;
-      background-image: radial-gradient(rgba(0,0,0,0), 50%, rgba(0,0,0,.7));
+      background-image: radial-gradient(rgba(0,0,0,0), 55%, rgba(0,0,0,.7));
 }
 `;

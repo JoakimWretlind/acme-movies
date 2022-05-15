@@ -67,7 +67,7 @@ export const getStaticProps = async () => {
         subtitle,
         tag,
         description,
-        seen,
+        myList,
         slug,
         displayTag,
         thumbnail{

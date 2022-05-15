@@ -52,7 +52,7 @@ export const Sliders = ({ genre, videos }) => {
                                             watch
                                         </Button>
                                     </Link>
-                                    <Button>add to list</Button>
+                                    <Button>+ my list</Button>
                                 </ButtonContainer>
                             </SliderItem>
                         </SwiperSlide>
