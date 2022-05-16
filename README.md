@@ -8,17 +8,20 @@
 <img align="left" src="https://img.shields.io/badge/-Framer-white?style=for-the-badge&logo=framer&logoColor=DB7093" />
 GraphCMS
 </br>
+</br>
 
 ## About
-Project under construction...
-The meaning of this project was to build a full stack application with a custom design and animations.
+This project is under construction...
+</br>
+</br>
+This is a full-stack movie application using Next JS's pre-rendering features.
+</br>
+I did this project to get a more profound knowledge about Next JS and graphQL, as well as explore more about animations in a bit more extensive application (which differs a bit from just a single animation).
+</br>
+</br>
+I hope you like it.
+</br>
+</br>
+</br>
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
+![Acme Movies](/public/images/ac-landing.png/ "landing page")
