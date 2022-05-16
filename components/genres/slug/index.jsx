@@ -1,5 +1,5 @@
 import { gql, GraphQLClient } from 'graphql-request'
-import { GenreSlide } from './genres'
+import { GenreSlide } from '..'
 
 const Genres = ({ videos }) => {
 

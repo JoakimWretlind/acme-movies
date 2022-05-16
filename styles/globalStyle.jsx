@@ -109,28 +109,21 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     .heroSlide {
-      width: 100%;
-      height: 100%;
-      -webkit-background-size: cover;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .swiperSlide{
       height: 100vh;
       width: 100%;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-}
+    }
+
     // use ::after to create an overlay over the image
-    .swiperSlide::after{
+    .heroSlide::after{
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       height: 100vh;
       width: 100%;
-      background-image: radial-gradient(rgba(0,0,0,0), 55%, rgba(0,0,0,.7));
+      background-image: radial-gradient(rgba(0,0,0,0), 58%, rgba(0,0,0,.6));
 }
 `;

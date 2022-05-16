@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { gql, GraphQLClient } from 'graphql-request'
-import { Sliders } from '../../components/moviesSection/sliders';
 import { GenreSection } from '../../components/genres';
 
 const Genres = ({ videos }) => {
