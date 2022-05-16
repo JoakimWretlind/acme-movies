@@ -11,6 +11,11 @@ export const movieTheme = {
 
   // font-sizes
   mid: "1.6rem",
+
+  // media queries
+  small: "418px",
+  medium: "768px",
+  large: "1025px"
 };
 
 export const GlobalStyle = createGlobalStyle`
@@ -105,16 +110,13 @@ export const GlobalStyle = createGlobalStyle`
     /******* Slider for the hero (parallax) *******/
     .heroSwiper {
       width: 100%;
-      height: 100%;
+      object-fit: cover;
     }
 
     .heroSlide {
-      height: 100vh;
       width: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
+      object-fit: cover;
+    }    
 
     // use ::after to create an overlay over the image
     .heroSlide::after{
@@ -125,5 +127,5 @@ export const GlobalStyle = createGlobalStyle`
       height: 100vh;
       width: 100%;
       background-image: radial-gradient(rgba(0,0,0,0), 58%, rgba(0,0,0,.6));
-}
+    }
 `;

@@ -5,11 +5,14 @@ export const LeftNav = styled.nav`
     top: 8rem;
     left: 0;
     height: calc(100vh - 8rem);
-    width: 8rem;
-    display: flex;
+    width: 8rem;    
     background-color: rgba(0,0,0,.5);
     border-right: .1rem solid ${props => props.theme.gray};
     z-index: 2;
+    display: none;
+    @media (min-width: 768px){
+        display: flex;
+    }
 `;
 
 export const LeftUL = styled.ul`

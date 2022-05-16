@@ -40,7 +40,7 @@ export const HeroSection = ({ videos }) => {
                 <div
                     slot="container-start"
                     className="parallax-bg"
-                    data-swiper-parallax="-23%"
+                // data-swiper-parallax="-23%"
                 ></div>
                 {getVideos(heroItems),
                     heroItems.map(slide => {

@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
-                    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+                    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Antonio:wght@300;400;500&family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Raleway&display=swap" rel="stylesheet" />
                 </Head>
                 <body>
                     <Main />
