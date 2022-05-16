@@ -1,5 +1,5 @@
 ## Live Version
-Live version: https://acme-movies-1.vercel.app/
+[demo](https://acme-movies-1.vercel.app/ "Acme Movies")
 
 ## Tech Used
 <img align="left" src="https://img.shields.io/badge/-GraphQL-white?style=for-the-badge&logo=graphql&logoColor=#E10098">
