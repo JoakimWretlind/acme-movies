@@ -6,14 +6,12 @@
 <img align="left" src="https://img.shields.io/badge/-Next.JS-white?style=for-the-badge&logo=next.js&logoColor=000000" />
 <img align="left" src="https://img.shields.io/badge/-Styled%20Components-white?style=for-the-badge&logo=styled-components&logoColor=DB7093" />
 <img align="left" src="https://img.shields.io/badge/-Framer-white?style=for-the-badge&logo=framer&logoColor=DB7093" />
+<img align="left" src="https://img.shields.io/badge/-Green%20Sock-white?style=for-the-badge&logo=GreenSock&logoColor=88ce02"/>
 GraphCMS
 </br>
 </br>
 
 ## About
-This project is under construction...
-</br>
-</br>
 This is a full-stack movie application using Next JS's pre-rendering features.
 </br>
 I did this project to get a more profound knowledge about Next JS and graphQL, as well as explore more about animations in a bit more extensive application (which differs a bit from just a single animation).
@@ -25,3 +23,6 @@ I hope you like it.
 </br>
 
 ![Acme Movies](/public/images/ac-landing.png/ "landing page")
+</br>
+</br>
+![Acme Movies](/public/images/ac-slides.png/ "genres page")

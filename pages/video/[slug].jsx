@@ -5,7 +5,6 @@ import { gsap } from 'gsap'
 import { CustomEase } from 'gsap/dist/CustomEase';
 import {
     Wrapper,
-    // InnerWrapper,
     ImageWrapper,
     Img,
     Info,
@@ -34,7 +33,9 @@ const Video = ({ video }) => {
     const infoRef = useRef(null)
     const infoTargetRefs = useRef([])
     infoTargetRefs.current = []
+    const imageWrapperRef = useRef()
 
+    // Opening animation
     useEffect(() => {
         const tl = gsap.timeline()
         tl.fromTo(infoRef.current, { autoAlpha: 0 }, {
@@ -50,6 +51,7 @@ const Video = ({ video }) => {
         })
     }, [])
 
+    // Watch video animation
     const handleVideoPlayer = () => {
         const tl = gsap.timeline()
 
@@ -63,6 +65,9 @@ const Video = ({ video }) => {
             opacity: .4,
             ease: CustomEase.create("custom", "M0,0,C0.558,0.282,0.87,0.454,1,1")
         })
+        tl.to(imageWrapperRef.current, {
+            opacity: 0, duration: 1
+        }, ">0")
         tl.to(videoRef.current, {
             duration: .5,
             opacity: 0,
@@ -74,6 +79,9 @@ const Video = ({ video }) => {
         })
     }
 
+    /** Display this videoplayer when the user clicks
+     * to watch video inside the slug
+     */
     const handleClick = (isVideo) => {
         if (isVideo == true) {
             handleVideoPlayer()
@@ -115,7 +123,7 @@ const Video = ({ video }) => {
             {handleClick(isVideo)}
             <Wrapper>
                 {/** ImageWrapper adds an overlay */}
-                <ImageWrapper isVideo={isVideo}>
+                <ImageWrapper isVideo={isVideo} ref={imageWrapperRef}>
                     <Img src={bigThumbnail.url} alt={title} />
                 </ImageWrapper>
                 <Info ref={infoRef}>

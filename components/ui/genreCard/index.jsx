@@ -4,8 +4,9 @@ import { PageContext } from "../../context/pageContext"
 import { useContext } from 'react';
 import { SliderItem, Img, H5, H3, ButtonContainer, Button } from "./style"
 
-export const SliderCard = ({ thumbnail, title, subtitle, slug }) => {
+export const SliderCard = ({ thumbnail, title, subtitle, slug, isOnList }) => {
     const { setIsOpen } = useContext(PageContext)
+
     return (
         <>
             <SliderItem>
@@ -18,9 +19,10 @@ export const SliderCard = ({ thumbnail, title, subtitle, slug }) => {
                             watch
                         </Button>
                     </Link>
-                    <Button onClick={() => { addMyList(slug) }}>+ my list</Button>
-                    <Button className="watch" onClick={() => { removeMyList(slug) }}>- my list</Button>
-
+                    {isOnList ?
+                        <Button onClick={() => { removeMyList(slug) }}>remove</Button> :
+                        <Button onClick={() => { addMyList(slug) }}>add to list</Button>
+                    }
                 </ButtonContainer>
             </SliderItem>
         </>

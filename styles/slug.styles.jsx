@@ -178,6 +178,9 @@ export const VideoPlayer = styled.video`
 
 /** PLAYER **/
 export const PlayerWrapper = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 100%;
     display: flex;
@@ -199,7 +202,7 @@ export const Close = styled.a`
     position: absolute;
     color: #fff;   
     top:3rem;
-    left: 3rem;
+    left: 7rem;
     z-index: 6;
     font-size: 2rem;
     &:hover{
